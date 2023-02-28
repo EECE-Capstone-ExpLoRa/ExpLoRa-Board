@@ -23,12 +23,9 @@ int main()
     led1 = false;
     led2 = false;
     led3 = false;
-    printf("WTF0");
 
     // I2C Setup
     I2C i2c(I2C_SDA, I2C_SCL);
-
-    printf("WTF01");
 
     // ALTIMITER Setup
     const int addrRdAlt = 0xED;
@@ -41,8 +38,6 @@ int main()
     i2c.write(addrWrAlt, cmd, 1);
     ThisThread::sleep_for(50);
 
-    printf("WTF1");
-
     char cmds[7] = {0xA2, 0xA4, 0xA6, 0xA8, 0xAA, 0xAD};
     cmd[0] = 0xA0;
     char precal[2];
@@ -53,7 +48,6 @@ int main()
         rawcal[i * 2] = precal[0];
         rawcal[(i * 2) + 1] = precal[1];
     }
-    printf("WTF2");
 
     for (int i = 0; i < 6; i++) {
         cal[i] = (((unsigned short)rawcal[i * 2]) << 8) | (unsigned short)rawcal[(i * 2) + 1];
