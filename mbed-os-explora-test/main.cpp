@@ -3,6 +3,7 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
+#include "BufferedSerial.h"
 #include "I2C.h"
 #include "PinNames.h"
 #include "ThisThread.h"
@@ -26,6 +27,9 @@ int main()
 
     // I2C Setup
     I2C i2c(I2C_SDA, I2C_SCL);
+
+    // UART/GPS Setup
+    BufferedSerial gps(UART1_TX, UART1_RX);
 
     // ALTIMITER Setup
     const int addrRdAlt = 0xED;
