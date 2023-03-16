@@ -75,9 +75,14 @@ int main()
     short gyroAccelData[6];
 
     // AIR SENSOR Setup
+    const int addrAir = 0x69;
+    const char getAirSerialCmd[2] = {0xD0, 0x33};
+    const char startAirMeasCmd[2] = {0x00, 0x21};
+    char airData[48];
+    int result;
 
 
-    while (true) {
+    while (true) {/*
         // ALTIMITER
         i2c.write(addrWrAlt, cmdPres, 1);
         ThisThread::sleep_for(15);
@@ -136,11 +141,23 @@ int main()
         printf("Accel X = %+1.2f g\n", (float)gyroAccelData[3] * accelScale);
         printf("Accel Y = %+1.2f g\n", (float)gyroAccelData[4] * accelScale);
         printf("Accel Z = %+1.2f g\n", (float)gyroAccelData[5] * accelScale);
-
+*/
 
         // AIR SENSOR
+        /*
+        i2c.write(addrAir, getAirSerialCmd, 2);
+        ThisThread::sleep_for(100);
+        i2c.read(addrAir + 1, airData, 48);
 
+        for (int i = 0; i < 48; i++) {
+            printf("Byte %i = %c\n", i, airData[i]);
+        }
+        */
 
-        ThisThread::sleep_for(250);
+        printf("Attempting Start Meas\n");
+        result = i2c.write(addrAir, getAirSerialCmd, 2);
+        printf("Returned: %i\n", result);
+
+        ThisThread::sleep_for(2000);
     }
 }
